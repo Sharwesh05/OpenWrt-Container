@@ -1,4 +1,5 @@
 FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y build-essential clang flex bison g++ gawk gcc-multilib g++-multilib gettext git libncurses-dev libssl-dev python3-distutils rsync unzip zlib1g-dev file wget curl libelf-dev python3-dev python3-setuptools swig
+ENV FORCE_UNSAFE_CONFIGURE=1
+RUN apt install binutils-gold bison build-essential ccache ecj fastjar file flex g++ gawk gcc-arm* gettext git libbsd-dev libelf-dev libncurses-dev libssl-dev meson mold ninja-build pbzip2 pigz pkg-config python3-dev python3-setuptools rsync subversion swig time unzip wget xsltproc xxd zlib1g-dev zstd
 WORKDIR /home/builder/openwrt

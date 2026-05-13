@@ -1,15 +1,10 @@
-version: '1.0'
-
 services:
   openwrt-builder:
     image: openwrt-build
     pull_policy: never
     container_name: openwrt-workspace
-    environment:
-      - FORCE_UNSAFE_CONFIGURE=1
     volumes:
       - ./workspace:/home/builder/openwrt
     working_dir: /home/builder/openwrt
-    # stay awake in the background forever, waiting for you to log in.
     tty: true
     command: sleep infinity
