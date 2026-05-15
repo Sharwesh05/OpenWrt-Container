@@ -18,8 +18,8 @@ RUN ./scripts/feeds update -a && ./scripts/feeds install -a
 RUN make defconfig
 
 # Kernel-Only Build: Download and Compile
-RUN make download -j$(nproc) && \
-    make -j$(nproc) V=s 2>&1 | tee build.log | grep -i -E "^make.*(error|[12345]...Entering dir)" || true
+RUN make download -j$(nproc)
+RUN make -j$(nproc) V=s 2>&1 | tee build.log | grep -i -E "^make.*(error|[12345]...Entering dir)" || true
 
 # --- STAGE 2: Final Export ---
 FROM alpine:latest
