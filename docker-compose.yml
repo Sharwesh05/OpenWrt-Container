@@ -7,11 +7,12 @@ services:
         - VERSION=${VER}
     image: openwrt-kernel-${VER}
     container_name: openwrt-kernel-worker-${VER}
+    user: builder
     volumes:
-      - /root/builds/${VER}:/export
+      - /root/builds/${VER}:/home/builder/export
       
     # Tell Ubuntu to copy the OpenWrt bin folder directly to your host
     command: >
       /bin/sh -c "
-      cp -r /home/builder/openwrt/bin/* /export/ && 
+      cp -r /home/builder/openwrt/bin/* /home/builder/export/ && 
       echo 'Success! Firmware exported to /root/builds/${VER}'"
