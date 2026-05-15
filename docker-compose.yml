@@ -4,7 +4,7 @@ services:
     pull_policy: never
     container_name: openwrt-workspace
     volumes:
-      - ./workspace:/home/builder/openwrt
+      - ./25.12-base:/home/builder/openwrt/bin
     working_dir: /home/builder/openwrt
     tty: true
     command: sleep infinity
