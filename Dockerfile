@@ -12,7 +12,7 @@ RUN git checkout openwrt-25.12
 
 # Fetch the config from your GitHub repo
 # Replace 'YOUR_USER/YOUR_REPO' with your actual repository details
-RUN curl -L "https://raw.githubusercontent.com/YOUR_USER/YOUR_REPO/main/configs/${VERSION}.config" -o .config
+RUN curl -L "https://raw.githubusercontent.com/Sharwesh05/OpenWrt-Container/main/configs/${VERSION}.config" -o .config
 
 # Prepare feeds and expand config
 RUN ./scripts/feeds update -a && ./scripts/feeds install -a
