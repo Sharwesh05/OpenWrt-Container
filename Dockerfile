@@ -11,7 +11,6 @@ RUN git clone https://git.openwrt.org/openwrt/openwrt.git .
 RUN git checkout openwrt-25.12
 
 # Fetch the config from your GitHub repo
-# Replace 'YOUR_USER/YOUR_REPO' with your actual repository details
 RUN curl -L "https://raw.githubusercontent.com/Sharwesh05/OpenWrt-Container/main/configs/${VERSION}.config" -o .config
 
 # Prepare feeds and expand config
@@ -19,7 +18,6 @@ RUN ./scripts/feeds update -a && ./scripts/feeds install -a
 RUN make defconfig
 
 # Kernel-Only Build: Download and Compile
-# 'target/compile' builds only the toolchain and the kernel/modules
 RUN make download -j$(nproc) && \
     make -j$(nproc) V=s 2>&1 | tee build.log | grep -i -E "^make.*(error|[12345]...Entering dir)" || true
 
@@ -28,8 +26,7 @@ FROM alpine:latest
 WORKDIR /output
 
 # Copy only kernel binaries and the kmod packages
-# Path: bin/targets/BOARD/SUBTARGET/
-COPY --from=builder /home/builder/openwrt/bin/ /output/kernel_results/
+COPY --from=builder /home/builder/openwrt/bin/ /output/
 COPY --from=builder /home/builder/openwrt/build.log /output/build.log
 
 CMD ["ls", "-R", "/output"]
