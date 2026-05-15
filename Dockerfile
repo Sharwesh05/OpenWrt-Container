@@ -19,14 +19,4 @@ RUN make defconfig
 
 # Kernel-Only Build: Download and Compile
 RUN make download -j$(nproc)
-RUN make -j$(nproc) V=s 2>&1 | tee build.log | grep -i -E "^make.*(error|[12345]...Entering dir)" || true
-
-# --- STAGE 2: Final Export ---
-FROM alpine:latest
-WORKDIR /output
-
-# Copy only kernel binaries and the kmod packages
-COPY --from=builder /home/builder/openwrt/bin/ /output/
-COPY --from=builder /home/builder/openwrt/build.log /output/build.log
-
-CMD ["ls", "-R", "/output"]
+RUN make -j$(nproc) V=s 2>&1 | tee build.log | grep -i -E "^make.*(error|[12345]...Entering dir)"
