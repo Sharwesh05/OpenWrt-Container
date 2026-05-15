@@ -1,10 +1,12 @@
 services:
-  openwrt-builder:
-    image: openwrt-build
-    pull_policy: never
-    container_name: openwrt-workspace
+  # 'kernel-engine' is the service name (label for the task)
+  kernel-engine:
+    build:
+      context: .
+      args:
+        - VERSION=${VER}
+    image: openwrt-kernel-${VER}
+    container_name: openwrt-kernel-worker-${VER}
     volumes:
-      - ./25.12-base:/home/builder/openwrt/bin
-    working_dir: /home/builder/openwrt
-    tty: true
-    command: sleep infinity
+      # Maps the tiny results to your host disk automatically
+      - /root/builds/${VER}:/output
