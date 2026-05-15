@@ -8,5 +8,10 @@ services:
     image: openwrt-kernel-${VER}
     container_name: openwrt-kernel-worker-${VER}
     volumes:
-      # Maps the tiny results to your host disk automatically
-      - /root/builds/${VER}:/output
+      - /root/builds/${VER}:/export
+      
+    # Tell Ubuntu to copy the OpenWrt bin folder directly to your host
+    command: >
+      /bin/sh -c "
+      cp -r /home/builder/openwrt/bin/* /export/ && 
+      echo 'Success! Firmware exported to /root/builds/${VER}'"
